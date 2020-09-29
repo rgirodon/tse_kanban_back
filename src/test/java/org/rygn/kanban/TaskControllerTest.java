@@ -47,7 +47,6 @@ public class TaskControllerTest extends ControllerTest {
 	public void testGetTaskTypes() throws Exception {
 		
 		mvc.perform(get("/task_types")
-				.header("Authorization", "Bearer " + this.accessToken)
 				.contentType(MediaType.APPLICATION_JSON))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -61,7 +60,6 @@ public class TaskControllerTest extends ControllerTest {
 	public void testGetTaskStatus() throws Exception {
 		
 		mvc.perform(get("/task_status")
-				.header("Authorization", "Bearer " + this.accessToken)
 				.contentType(MediaType.APPLICATION_JSON))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -80,7 +78,6 @@ public class TaskControllerTest extends ControllerTest {
 	public void testGetTasks() throws Exception {
 		
 		mvc.perform(get("/tasks")
-				.header("Authorization", "Bearer " + this.accessToken)
 				.contentType(MediaType.APPLICATION_JSON))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -109,7 +106,6 @@ public class TaskControllerTest extends ControllerTest {
         byte[] taskAsBytes = mapper.writeValueAsBytes(task);
 		
 		mvc.perform(post("/tasks")
-				.header("Authorization", "Bearer " + this.accessToken)
 				.contentType(MediaType.APPLICATION_JSON).content(taskAsBytes))				
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -151,7 +147,6 @@ public class TaskControllerTest extends ControllerTest {
         byte[] taskAsBytes = mapper.writeValueAsBytes(task);
 		
 		mvc.perform(post("/tasks")
-				.header("Authorization", "Bearer " + this.accessToken)
 				.contentType(MediaType.APPLICATION_JSON).content(taskAsBytes))				
 			    .andExpect(status().is(400))
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -194,7 +189,6 @@ public class TaskControllerTest extends ControllerTest {
 		        byte[] moveRightAsBytes = mapper.writeValueAsBytes(moveRight);
 				
 				mvc.perform(patch("/tasks/" + currentTask.getId())
-						.header("Authorization", "Bearer " + this.accessToken)
 						.contentType(MediaType.APPLICATION_JSON).content(moveRightAsBytes))				
 					    .andExpect(status().isOk())
 					    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -210,7 +204,6 @@ public class TaskControllerTest extends ControllerTest {
 				byte[] moveLeftAsBytes = mapper.writeValueAsBytes(moveLeft);
 				
 				mvc.perform(patch("/tasks/" + currentTask.getId())
-						.header("Authorization", "Bearer " + this.accessToken)
 						.contentType(MediaType.APPLICATION_JSON).content(moveLeftAsBytes))				
 					    .andExpect(status().isOk())
 					    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

@@ -1,17 +1,13 @@
 package org.rygn.kanban.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.rygn.kanban.utils.ValidationError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,7 +34,18 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {        	
         	errors.add(new ValidationError(fieldError.getField(), fieldError.getDefaultMessage()));
         }
-        Collections.sort(errors, Comparator.comparing(ValidationError::getField));
+        
+        Comparator<ValidationError> comparator = new Comparator<ValidationError>() {
+
+			@Override
+			public int compare(ValidationError err0, ValidationError err1) {
+				
+				return err0.getField().compareTo(err1.getField());
+			}
+        	
+		};
+        
+        Collections.sort(errors, comparator);
 
         body.put("errors", errors);
 

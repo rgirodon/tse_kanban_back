@@ -25,7 +25,6 @@ public class DeveloperControllerTest extends ControllerTest {
 	public void testGetTasks() throws Exception {
 		
 		mvc.perform(get("/developers")
-				.header("Authorization", "Bearer " + this.accessToken)
 				.contentType(MediaType.APPLICATION_JSON))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
