@@ -1,12 +1,11 @@
 package org.rygn.kanban.domain;
 
 import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.ToString;
@@ -20,8 +19,7 @@ public class ChangeLog {
 	private LocalDateTime occured;
 	
 	@ManyToOne
-	@JsonIgnoreProperties("changeLogs")
-	@ToString.Exclude	
+	@ToString.Exclude
 	private Task task;
 	
 	@ManyToOne

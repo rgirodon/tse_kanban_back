@@ -1,10 +1,8 @@
 package org.rygn.kanban.service;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.rygn.kanban.domain.ChangeLog;
-import org.rygn.kanban.domain.Developer;
 import org.rygn.kanban.domain.Task;
 import org.rygn.kanban.domain.TaskStatus;
 import org.rygn.kanban.domain.TaskType;

@@ -1,10 +1,13 @@
 package org.rygn.kanban;
 
+import java.util.Collection;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.rygn.kanban.domain.Developer;
-import org.rygn.kanban.domain.Task;
+import org.rygn.kanban.service.DeveloperService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -12,19 +15,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles(profiles = "test")
-public class TaskTest {
+public class DeveloperServiceTest {
+
+	@Autowired
+    private DeveloperService developerService;
 	
 	@Test
-	public void testAddDeveloperToTask() {
+	public void testFindAllDevelopers() {
 		
-		Developer developer = new Developer();
+		Collection<Developer> developers = this.developerService.findAllDevelopers();
 		
-		Task task = new Task();
-		
-		task.addDeveloper(developer);
-		
-		Assert.assertEquals(1, task.getDevelopers().size());
-		
-		Assert.assertEquals(1, developer.getTasks().size());
-	}	
+		Assert.assertEquals(1, developers.size());
+	}
 }

@@ -1,6 +1,5 @@
 package org.rygn.kanban.dao;
 
-import org.rygn.kanban.domain.Task;
 import org.rygn.kanban.domain.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 

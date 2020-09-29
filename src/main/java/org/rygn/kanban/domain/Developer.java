@@ -10,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -32,10 +30,9 @@ public class Developer {
 	
 	private LocalDate startContract;
 	 
+	@ManyToMany(mappedBy="developers", fetch=FetchType.EAGER)
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@ManyToMany(mappedBy="developers", fetch=FetchType.EAGER)
-	@JsonIgnoreProperties("developers")
     private Set<Task> tasks;
 	
 	public Developer() {
