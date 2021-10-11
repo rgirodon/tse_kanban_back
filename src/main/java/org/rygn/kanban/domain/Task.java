@@ -13,11 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
-@Data
 @Entity
 public class Task {
 
@@ -38,43 +33,81 @@ public class Task {
 	private TaskStatus status;	
 	
 	@ManyToMany(fetch=FetchType.EAGER)
-	@ToString.Exclude
-	@EqualsAndHashCode.Exclude
     private Set<Developer> developers;
-	
-	@OneToMany(mappedBy="task", cascade={CascadeType.ALL}, orphanRemoval=true)
-	@ToString.Exclude
-	@EqualsAndHashCode.Exclude
-	private Set<ChangeLog> changeLogs;
 	
 	public Task() {
 		
 		this.developers = new HashSet<>();
-		
-		this.changeLogs = new HashSet<>();
 	}
 	
 	public void addDeveloper(Developer developer) {
 		
-		developer.getTasks().add(this);
-		
 		this.developers.add(developer);
 	}
-	
-	public void addChangeLog(ChangeLog changeLog) {
-		
-		changeLog.setTask(this);
-		
-		this.changeLogs.add(changeLog);
+
+	public Long getId() {
+		return id;
 	}
 
-	public void clearChangeLogs() {
-		
-		for (ChangeLog changeLog :  this.changeLogs) {
-			
-			changeLog.setTask(null);
-		}
-		
-		this.changeLogs.clear();
+	public void setId(Long id) {
+		this.id = id;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Integer getNbHoursForecast() {
+		return nbHoursForecast;
+	}
+
+	public void setNbHoursForecast(Integer nbHoursForecast) {
+		this.nbHoursForecast = nbHoursForecast;
+	}
+
+	public Integer getNbHoursReal() {
+		return nbHoursReal;
+	}
+
+	public void setNbHoursReal(Integer nbHoursReal) {
+		this.nbHoursReal = nbHoursReal;
+	}
+
+	public LocalDate getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDate created) {
+		this.created = created;
+	}
+
+	public TaskType getType() {
+		return type;
+	}
+
+	public void setType(TaskType type) {
+		this.type = type;
+	}
+
+	public TaskStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(TaskStatus status) {
+		this.status = status;
+	}
+
+	public Set<Developer> getDevelopers() {
+		return developers;
+	}
+
+	public void setDevelopers(Set<Developer> developers) {
+		this.developers = developers;
+	}
+	
+	
 }

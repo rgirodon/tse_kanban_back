@@ -7,10 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
-import lombok.ToString;
-
-@Data
 @Entity
 public class ChangeLog {
 
@@ -19,7 +15,6 @@ public class ChangeLog {
 	private LocalDateTime occured;
 	
 	@ManyToOne
-	@ToString.Exclude
 	private Task task;
 	
 	@ManyToOne
@@ -30,4 +25,46 @@ public class ChangeLog {
 	
 	public ChangeLog() {
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public LocalDateTime getOccured() {
+		return occured;
+	}
+
+	public void setOccured(LocalDateTime occured) {
+		this.occured = occured;
+	}
+
+	public Task getTask() {
+		return task;
+	}
+
+	public void setTask(Task task) {
+		this.task = task;
+	}
+
+	public TaskStatus getTargetStatus() {
+		return targetStatus;
+	}
+
+	public void setTargetStatus(TaskStatus targetStatus) {
+		this.targetStatus = targetStatus;
+	}
+
+	public TaskStatus getSourceStatus() {
+		return sourceStatus;
+	}
+
+	public void setSourceStatus(TaskStatus sourceStatus) {
+		this.sourceStatus = sourceStatus;
+	}
+	
+	
 }

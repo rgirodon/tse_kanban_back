@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import org.hibernate.Hibernate;
+import org.rygn.kanban.dao.ChangeLogRepository;
 import org.rygn.kanban.dao.TaskRepository;
 import org.rygn.kanban.dao.TaskStatusRepository;
 import org.rygn.kanban.dao.TaskTypeRepository;
@@ -30,6 +32,9 @@ public class TaskServiceImpl implements TaskService {
 	
 	@Autowired
 	private TaskTypeRepository taskTypeRepository;
+	
+	@Autowired
+	private ChangeLogRepository changeLogRepository;
 		
 	@Override
 	@Transactional(readOnly = true)
@@ -77,18 +82,7 @@ public class TaskServiceImpl implements TaskService {
 	@Transactional(readOnly = true)
 	public Collection<ChangeLog> findChangeLogsForTask(Task task) {
 		
-		Task foundTask = this.findTask(task.getId());
-		
-		if (foundTask != null) {
-			
-			// force initialization
-			Hibernate.initialize(foundTask.getChangeLogs());
-			
-			return foundTask.getChangeLogs();
-		}
-		else {
-			return new HashSet<>();
-		}
+		return this.changeLogRepository.findByTaskId(task.getId());
 	}
 
 	@Override
@@ -100,9 +94,10 @@ public class TaskServiceImpl implements TaskService {
 		ChangeLog changeLog = new ChangeLog();
 		changeLog.setOccured(LocalDateTime.now());
 		changeLog.setSourceStatus(task.getStatus());
-		changeLog.setTargetStatus(targetStatus);
+		changeLog.setTargetStatus(targetStatus);		
+		changeLog.setTask(task);
 		
-		task.addChangeLog(changeLog);
+		this.changeLogRepository.save(changeLog);
 		
 		task.setStatus(targetStatus);
 		
@@ -242,7 +237,12 @@ public class TaskServiceImpl implements TaskService {
 		
 		task = this.taskRepository.save(task);
 		
-		task.clearChangeLogs();
+		List<ChangeLog> changeLogs = this.changeLogRepository.findByTaskId(task.getId());
+		
+		for (ChangeLog changeLog : changeLogs) {
+			
+			this.changeLogRepository.delete(changeLog);
+		}
 		
 		this.taskRepository.delete(task);
 	}

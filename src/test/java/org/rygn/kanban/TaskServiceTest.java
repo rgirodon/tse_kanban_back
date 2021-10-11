@@ -184,7 +184,9 @@ public class TaskServiceTest {
 		
 		Assert.assertEquals(doneStatus, task.getStatus());
 		
-		Assert.assertEquals(3, task.getChangeLogs().size());
+		changeLogs = this.taskService.findChangeLogsForTask(task);
+		
+		Assert.assertEquals(3, changeLogs.size());
 		
 		this.taskService.deleteTask(task);
 	}
@@ -243,7 +245,9 @@ public class TaskServiceTest {
 		
 		Assert.assertEquals(todoStatus, task.getStatus());
 		
-		Assert.assertEquals(6, task.getChangeLogs().size());
+		changeLogs = this.taskService.findChangeLogsForTask(task);
+		
+		Assert.assertEquals(6, changeLogs.size());
 		
 		this.taskService.deleteTask(task);
 	}

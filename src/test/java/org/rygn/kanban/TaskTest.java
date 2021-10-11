@@ -24,7 +24,5 @@ public class TaskTest {
 		task.addDeveloper(developer);
 		
 		Assert.assertEquals(1, task.getDevelopers().size());
-		
-		Assert.assertEquals(1, developer.getTasks().size());
 	}	
 }
